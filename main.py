@@ -31,7 +31,89 @@ import time
 #########################################################
 #                   Your Code Goes Below                #
 #########################################################
+#Part A
 
+
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+    myturtle.up()
+    myturtle.goto(top_left_x, top_left_y)
+    myturtle.down()
+    myturtle.goto(top_left_x + width, top_left_y)
+    myturtle.goto(top_left_x + width, top_left_y - width)
+    myturtle.goto(top_left_x, top_left_y - width)
+    myturtle.goto(top_left_x, top_left_y)
+    myturtle.up()
+
+
+def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+    myturtle.goto(x_start, y_start)
+    myturtle.down()
+    myturtle.goto(x_end, y_end)
+    myturtle.up()
+
+
+def drawCircle(myturtle=None, radius=0):
+    myturtle.down()
+    myturtle.circle(radius)
+
+
+def setUpDartboard(window, myturtle):
+    window.setworldcoordinates(-1, -1, 1, 1)
+    drawSquare(myturtle, 2, -1, 1)
+    drawLine(myturtle, 1, 0, -1, 0)
+    drawLine(myturtle, 0, 1, 0, -1)
+    drawCircle(myturtle, 1)
+
+
+#Part B
+def throwDart(myturtle=None):
+    x = random.uniform(-1, 1)
+    y = random.uniform(-1, 1)
+    myturtle.up()
+    myturtle.goto(x, y)
+    myturtle.down()
+    if isInCircle(myturtle):
+        myturtle.dot(10, "red")
+        return 1
+    else:
+        myturtle.dot(10, "blue")
+        return 0
+
+
+def playDarts(myturtle=None):
+    accumulator = 0
+    accumulator2 = 0
+    for i in range(9):
+        points = throwDart(myturtle)
+        accumulator = accumulator + points
+        points2 = throwDart(myturtle)
+        accumulator2 += points2
+
+    print("Player 1 earned " + str(accumulator) + " points")
+
+    print("Player 2 earned " + str(accumulator2) + " points")
+
+
+#Part C
+def isInCircle(myturtle=None):
+    distance = myturtle.distance(0, 0)
+    if distance > 1:
+        return False
+    else:
+        return True
+
+
+def montePi(myturtle=None, num_darts=0):
+    dartsInCircle = 0
+    # dartsInSquare = 0
+    for i in range(num_darts - 1):
+        if throwDart(myturtle) == 1:
+            dartsInCircle += 1
+        # else:
+        #   dartsInSquare += 1
+    approxPi = (dartsInCircle / num_darts) * 4
+
+    return approxPi
 
 
 #########################################################
@@ -50,7 +132,7 @@ def main():
     #Create window, turtle, set up window as dartboard
     window = turtle.Screen()
     darty = turtle.Turtle()
-    darty.speed(0) # as fast as it will go!
+    darty.speed(0)  # as fast as it will go!
     setUpDartboard(window, darty)
 
     # Loop for 10 darts to test your code
@@ -66,18 +148,23 @@ def main():
     print("=========== Part C ===========")
     darty.clear()
     setUpDartboard(window, darty)
-    
+
     # Includes the following code in order to update animation periodically
     # instead of for each throw (saves LOTS of time):
     BATCH_OF_DARTS = 5000
     window.tracer(BATCH_OF_DARTS)
 
     # Conduct simulation and print result
-    number_darts = int(input("\nPlease input the number of darts to be thrown in the simulation:  "))
+    number_darts = int(
+        input(
+            "\nPlease input the number of darts to be thrown in the simulation:  "
+        ))
     approx_pi = montePi(darty, number_darts)
-    print("\nThe estimation of pi using "+str(number_darts)+" virtual darts is " + str(approx_pi))
+    print("\nThe estimation of pi using " + str(number_darts) +
+          " virtual darts is " + str(approx_pi))
     print("\tPart C Complete...")
     # Don't hide or mess with window while it's 'working'
     window.exitonclick()
+
 
 main()
