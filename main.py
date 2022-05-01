@@ -43,20 +43,35 @@ def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
     myturtle.goto(top_left_x, top_left_y - width)
     myturtle.goto(top_left_x, top_left_y)
     myturtle.up()
+'''
+general function description: this draws the square where the dart board will be 
+args: myturtle, width, top_left_x, top_left_y, make the points of the square 
+return: none
 
+'''
 
 def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
     myturtle.goto(x_start, y_start)
     myturtle.down()
     myturtle.goto(x_end, y_end)
     myturtle.up()
+'''
+general function description: this draws the line within th e circle
+args: myturtle, x_start, y_start, x_end, y_end, points where the line begins and ends
+return: none
 
+'''
 
 def drawCircle(myturtle=None, radius=0):
     myturtle.down()
     myturtle.circle(radius)
 
+'''
+general function description: this draws the dart board(i.e. circle)
+args: myturtle, radius, turtle used to make circle, radius is the width between center and end
+return: none
 
+'''
 def setUpDartboard(window, myturtle):
     window.setworldcoordinates(-1, -1, 1, 1)
     drawSquare(myturtle, 2, -1, 1)
@@ -64,7 +79,12 @@ def setUpDartboard(window, myturtle):
     drawLine(myturtle, 0, 1, 0, -1)
     drawCircle(myturtle, 1)
 
+'''
+general function description: this sets up the other functions to  match the description 
+args: window, myturtle, window sets new world coordinates, myturtle used for returns
+return: drawSquare,drawLine,drawLine,drawCircle, call functions
 
+'''
 #Part B
 def throwDart(myturtle=None):
     x = random.uniform(-1, 1)
@@ -78,7 +98,12 @@ def throwDart(myturtle=None):
     else:
         myturtle.dot(10, "blue")
         return 0
+'''
+general function description: this throws darts in different places. It makes dots in the cricle red, or else its blue
+args: myturtle, makes dots moves randomly 
+return: 1,0, returns the points 
 
+'''
 
 def playDarts(myturtle=None):
     accumulator = 0
@@ -93,6 +118,12 @@ def playDarts(myturtle=None):
 
     print("Player 2 earned " + str(accumulator2) + " points")
 
+'''
+general function description: makes the description for the points. points are accumalated throughout the game
+args: myturtle, used to set up poinrt 
+return: nothing
+
+'''
 
 #Part C
 def isInCircle(myturtle=None):
@@ -102,6 +133,12 @@ def isInCircle(myturtle=None):
     else:
         return True
 
+'''
+general function description: This sees if the dot is inside the circle
+args: myturtle
+return: false or true depending on distance
+
+'''
 
 def montePi(myturtle=None, num_darts=0):
     dartsInCircle = 0
@@ -114,7 +151,12 @@ def montePi(myturtle=None, num_darts=0):
     approxPi = (dartsInCircle / num_darts) * 4
 
     return approxPi
+'''
+general function description: this calculates the value of pi based on the amount of darts in the circle over the overall amount of darts times 4
+args: myturtle, num_dart
+return: returns the calculated aproximate value of pi
 
+'''
 
 #########################################################
 #         Do not alter any code below here              #
